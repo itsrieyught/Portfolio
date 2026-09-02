@@ -269,10 +269,17 @@
             transition: all 0.25s ease;
         }
 
-        .btn:hover {
+.btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 16px 26px rgba(139, 26, 26, 0.2), inset 0 1px 0 rgba(255,255,255,0.2);
             filter: saturate(1.05);
+        }
+
+        .resume-icon {
+            font-size: 0.72rem;
+            margin-left: 6px;
+            vertical-align: middle;
+            transform: translateY(-1px);
         }
 
         .two {
