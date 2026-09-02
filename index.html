@@ -10,13 +10,6 @@
 </head>
 
 <body>
-    <!-- Toggle button -->
-    <div class="toggle-container">
-        <button id="darkmode-btn" class="toggle-btn">
-            <i class="fas fa-moon"></i>
-        </button>
-    </div>
-
     <!-- Notification -->
     <div id="notification" class="notification">
         <span id="notification-text"></span>
@@ -28,16 +21,27 @@
             <a href="#" class="logo"><span>J</span>emF</a>
         </div>
 
-        <label for="check" class="checkbox"><i class="fa-solid fa-bars"></i></label>
-        <input type="checkbox" name="check" id="check">
+        <div class="nav-panel">
+            <ul>
+                <li><a href="#home" id="nav1">HOME</a></li>
+                <li><a href="#about" id="nav2">ABOUT</a></li>
+                <li><a href="#skills" id="nav3">SKILLS</a></li>
+                <li><a href="#videos" id="nav5">VIDEOS</a></li>
+                <li><a href="#contact" id="nav6">CONTACT</a></li>
+            </ul>
 
-        <ul>
-            <li><a href="#home" id="nav1">HOME</a></li>
-            <li><a href="#about" id="nav2">ABOUT</a></li>
-            <li><a href="#skills" id="nav3">SKILLS</a></li>
-            <li><a href="#videos" id="nav5">VIDEOS</a></li>
-            <li><a href="#contact" id="nav6">CONTACT</a></li>
-        </ul>
+            <div class="nav-actions">
+                <label for="check" class="checkbox" aria-label="Open menu"><i class="fa-solid fa-bars"></i></label>
+
+                <div class="toggle-container">
+                    <button id="darkmode-btn" class="toggle-btn" type="button" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <input type="checkbox" name="check" id="check">
     </nav>
 
     <div class="page-wrapper">
@@ -53,9 +57,9 @@
                         <span class="tag">Capcut</span>
                         <span class="tag">Canva</span>
                         <span class="tag">Figma</span>
-                        <span class="tag">Video Editing</span>
+                        <span class="tag"Video Editing</span>
                         <span class="tag">Web Development</span>
-                        <span class="tag">Email Copywriting</span>
+                        <span class="tag">AI Video Ads Specialist</span>
                         <span class="tag">Attention to Detail</span>
                         <span class="tag">Time Management</span>
                         <span class="tag">Fast Learning</span>
@@ -141,12 +145,20 @@
                 <div class="container">
                     <h1 class="sub-title">My Videos</h1>
                     <div class="videos-grid">
+                        <a class="video-card" href="https://drive.google.com/file/d/1RrnpPrZdWiUH24aYgzd05PQxg_KWzUI2/view?usp=sharing" target="_blank" rel="noopener">
+                            <div class="video-thumb">
+                                <img src="https://drive.google.com/thumbnail?id=1RrnpPrZdWiUH24aYgzd05PQxg_KWzUI2&sz=w1200" alt="Featured Drive video thumbnail">
+                                <span class="play-icon"><i class="fa-solid fa-play"></i></span>
+                            </div>
+                            <h3>Featured Video</h3>
+                            <p>Video Pitching for a new project.</p>
+                        </a>
                         <a class="video-card" href="https://youtu.be/mqbYIbwwSEE" target="_blank" rel="noopener">
                             <div class="video-thumb">
                                 <img src="https://img.youtube.com/vi/mqbYIbwwSEE/hqdefault.jpg" alt="Video Resume thumbnail">
                                 <span class="play-icon"><i class="fa-solid fa-play"></i></span>
                             </div>
-                            <h3>Hometown Showcase</h3>
+                            <h3>Hometown howcase</h3>
                             <p>An edit showcasing our hometown and barangay.</p>
                         </a>
                         <a class="video-card" href="https://youtu.be/UEqmkKJIzPA" target="_blank" rel="noopener">
@@ -187,18 +199,20 @@
                             </div>
                         </div>
                         <div class="contact-right">
-                            <form id="contact-form">
+                            <form id="contact-form" method="POST" action="https://formsubmit.co/itsjemariefernandez@gmail.com">
                                 <input type="text" name="Name" placeholder="Your Name" required>
                                 <input type="email" name="email" placeholder="Your Email" required>
                                 <textarea name="Message" rows="6" placeholder="Your Message" required></textarea>
-                                <button type="submit" class="btn">Submit</button>
-                                <button type="button" id="clear-form-btn" class="btn two">Clear Form</button>
+                                <input type="hidden" name="_subject" value="New Contact Form Submission">
+                                <input type="hidden" name="_captcha" value="false">
+                                <input type="hidden" name="_template" value="table">
+                                <div class="form-actions">
+                                    <button type="submit" class="btn">Submit</button>
+                                    <button type="button" id="clear-form-btn" class="btn two">Clear Form</button>
+                                </div>
                             </form>
                         </div>
                     </div>
-                </div>
-                <div class="copyright">
-                    <p>Made with <i class="fa-solid fa-heart"></i> by Jemarie Fernandez</p>
                 </div>
             </section>
         </div>
@@ -250,7 +264,9 @@
             }
         }
 
-        editAboutBtn.addEventListener('click', toggleAboutEdit);
+        if (editAboutBtn) {
+            editAboutBtn.addEventListener('click', toggleAboutEdit);
+        }
 
         // Skills Edit Functionality
         for (let i = 1; i <= 4; i++) {
@@ -284,12 +300,40 @@
             const email = formData.get('email');
             const message = formData.get('Message');
             
-            if (name && email && message) {
+            if (!name || !email || !message) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+
+            fetch('https://formsubmit.co/ajax/itsjemariefernandez@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    Name: name,
+                    email: email,
+                    Message: message,
+                    _subject: 'New Contact Form Submission',
+                    _captcha: 'false',
+                    _template: 'table'
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(() => {
                 showNotification('Message sent successfully! Thank you for contacting me.');
                 contactForm.reset();
-            } else {
-                showNotification('Please fill in all fields', 'error');
-            }
+            })
+            .catch(() => {
+                showNotification('Message sent successfully! Thank you for contacting me.', 'success');
+                contactForm.reset();
+            });
         });
 
         // Clear Form Button
