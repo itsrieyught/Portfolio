@@ -78,6 +78,7 @@ clearFormBtn.addEventListener('click', function() {
 
 // Smooth scrolling and click-based active state for navigation links
 const navLinks = document.querySelectorAll('nav ul li a');
+const menuToggle = document.getElementById('check');
 
 navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
@@ -87,10 +88,13 @@ navLinks.forEach(link => {
 
         navLinks.forEach(navLink => navLink.classList.remove('active'));
         this.classList.add('active');
+        menuToggle.checked = false;
 
         if (targetId === '#home') {
-            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
-            document.body.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('home').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         } else if (targetElement) {
             targetElement.scrollIntoView({
                 behavior: 'smooth'
