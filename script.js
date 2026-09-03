@@ -88,7 +88,10 @@ navLinks.forEach(link => {
         navLinks.forEach(navLink => navLink.classList.remove('active'));
         this.classList.add('active');
 
-        if (targetElement) {
+        if (targetId === '#home') {
+            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+            document.body.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (targetElement) {
             targetElement.scrollIntoView({
                 behavior: 'smooth'
             });
