@@ -70,51 +70,6 @@ for (let i = 1; i <= 4; i++) {
     }
 }
 
-// Contact Form Handling
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(contactForm);
-    const name = formData.get('Name');
-    const email = formData.get('email');
-    const message = formData.get('Message');
-
-    if (!name || !email || !message) {
-        showNotification('Please fill in all fields', 'error');
-        return;
-    }
-
-    fetch('https://formsubmit.co/ajax/itsjemariefernandez@gmail.com', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            Name: name,
-            email: email,
-            Message: message,
-            _subject: 'New Contact Form Submission',
-            _captcha: 'false',
-            _template: 'table'
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(() => {
-        showNotification('Message sent successfully! Thank you for contacting me.');
-        contactForm.reset();
-    })
-    .catch(() => {
-        showNotification('Message sent successfully! Thank you for contacting me.', 'success');
-        contactForm.reset();
-    });
-});
-
 // Clear Form Button
 clearFormBtn.addEventListener('click', function() {
     contactForm.reset();
