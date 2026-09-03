@@ -76,12 +76,17 @@ clearFormBtn.addEventListener('click', function() {
     showNotification('Form cleared!');
 });
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('nav ul li a').forEach(link => {
+// Smooth scrolling and click-based active state for navigation links
+const navLinks = document.querySelectorAll('nav ul li a');
+
+navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
         const targetElement = document.querySelector(targetId);
+
+        navLinks.forEach(navLink => navLink.classList.remove('active'));
+        this.classList.add('active');
 
         if (targetElement) {
             targetElement.scrollIntoView({
@@ -91,26 +96,4 @@ document.querySelectorAll('nav ul li a').forEach(link => {
     });
 });
 
-// Navigation highlighting on scroll
-window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav ul li a');
-
-    let current = '';
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-
-        if (pageYOffset >= (sectionTop - 200)) {
-            current = section.getAttribute('class');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) {
-            link.classList.add('active');
-        }
-    });
-});
+navLinks[0]?.classList.add('active');
