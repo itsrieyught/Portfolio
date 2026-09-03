@@ -915,13 +915,20 @@
         /* ========== NOTIFICATION STYLES ========== */
         .notification {
             position: fixed;
-            top: 20px;
+            top: 86px;
             left: 50%;
             transform: translateX(-50%);
-            background: #4CAF50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
+            background: rgba(179, 38, 30, 0.82);
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            max-width: min(90vw, 360px);
+            font-size: 0.8rem;
+            line-height: 1.4;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 6px 16px rgba(80, 10, 8, 0.18);
             z-index: 1002;
             opacity: 0;
             transition: all 0.3s ease;
@@ -932,7 +939,7 @@
         }
 
         .notification.error {
-            background: #f44336;
+            background: rgba(143, 23, 17, 0.86);
         }
 
         /* ========== DARK MODE STYLES ========== */
