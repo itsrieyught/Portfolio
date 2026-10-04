@@ -637,6 +637,210 @@
             background-color: #e0e0e0;
         }
 
+        #ui-designs,
+        #ui-tutor {
+            padding: 88px 0;
+            scroll-margin-top: 92px;
+        }
+
+        .ui-designs-intro {
+            margin: -2px 0 28px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .ui-carousel {
+            position: relative;
+            height: 640px;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 40px 80px;
+            border: 1px solid #e5e5e5;
+            border-radius: 40px;
+            background: #fff;
+            perspective: 1200px;
+            touch-action: pan-y;
+        }
+
+        .ui-carousel-track {
+            position: relative;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .ui-slide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 270px;
+            height: 560px;
+            visibility: visible;
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) translateX(0) translateZ(-500px) rotateY(0) scale(0.5);
+            transform-origin: center;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            cursor: pointer;
+        }
+
+        .ui-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 16px;
+            backface-visibility: hidden;
+            box-shadow: 0 8px 24px rgba(17, 24, 39, 0.12);
+        }
+
+        .ui-slide[data-offset="0"] {
+            opacity: 1;
+            z-index: 5;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) translateX(0) translateZ(0) rotateY(0) scale(1);
+        }
+
+        .ui-slide[data-offset="0"] img {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .ui-slide[data-offset="-1"] {
+            opacity: 1;
+            z-index: 4;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) translateX(-260px) translateZ(-150px) rotateY(25deg) scale(0.85);
+        }
+
+        .ui-slide[data-offset="1"] {
+            opacity: 1;
+            z-index: 4;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) translateX(260px) translateZ(-150px) rotateY(-25deg) scale(0.85);
+        }
+
+        .ui-slide[data-offset="-2"] {
+            opacity: 0.6;
+            z-index: 3;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) translateX(-440px) translateZ(-300px) rotateY(45deg) scale(0.7);
+        }
+
+        .ui-slide[data-offset="2"] {
+            opacity: 0.6;
+            z-index: 3;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) translateX(440px) translateZ(-300px) rotateY(-45deg) scale(0.7);
+        }
+
+        .carousel-counter {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            z-index: 5;
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 56px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #111;
+            font-size: 28px;
+            cursor: pointer;
+            transform: translateY(-50%);
+        }
+
+        .carousel-control:hover,
+        .carousel-control:focus-visible { color: var(--main-color); }
+        .carousel-prev { left: 24px; }
+        .carousel-next { right: 24px; }
+
+        .carousel-dots {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+        }
+
+        .carousel-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: grid;
+            place-items: center;
+            padding: 32px;
+            background: rgba(0, 0, 0, 0.88);
+        }
+
+        .carousel-lightbox[hidden] { display: none; }
+
+        .carousel-lightbox-content {
+            position: relative;
+            max-width: min(90vw, 900px);
+            max-height: 92vh;
+            overflow: auto;
+        }
+
+        .carousel-lightbox img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            min-height: 420px;
+            border-radius: 12px;
+        }
+
+        .carousel-lightbox-close {
+            position: fixed;
+            top: 20px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            background: transparent;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        body.dark-mode .ui-carousel { background: #1b1d22; border-color: #353941; }
+        body.dark-mode .carousel-control { color: #f5f5f5; }
+
+        @media (max-width: 768px) {
+            .ui-carousel {
+                height: 500px;
+                padding: 24px;
+            }
+
+            .ui-slide {
+                width: 200px;
+                height: 420px;
+            }
+
+            .ui-slide[data-offset="-1"] { transform: translate(-50%, -50%) translateX(-170px) translateZ(-150px) rotateY(25deg) scale(0.85); }
+            .ui-slide[data-offset="1"] { transform: translate(-50%, -50%) translateX(170px) translateZ(-150px) rotateY(-25deg) scale(0.85); }
+            .ui-slide[data-offset="-2"],
+            .ui-slide[data-offset="2"] { opacity: 0; pointer-events: none; }
+            .carousel-prev { left: 8px; }
+            .carousel-next { right: 8px; }
+        }
+
         .skill-actions {
             display: flex;
             justify-content: center;
