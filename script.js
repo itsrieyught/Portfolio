@@ -275,8 +275,6 @@ function initializeRingCarousel(carousel) {
         const front = frontFace();
         faces.forEach((face, faceIndex) => {
             const isFront = faceIndex === front;
-            const facing = Math.cos(((faceIndex - step) * angle * Math.PI) / 180);
-            face.style.setProperty('--facing', facing.toFixed(3));
             face.classList.toggle('is-active', isFront);
             face.tabIndex = isFront ? 0 : -1;
             face.setAttribute('aria-hidden', String(!isFront));
@@ -361,3 +359,7 @@ document.addEventListener('keydown', (event) => {
     const direction = event.key === 'ArrowRight' ? 1 : -1;
     hoveredOrFocusedCarousel.dispatchEvent(new CustomEvent('carousel-key-navigation', { detail: direction }));
 });
+
+// Footer year stays current without editing the HTML.
+const footerYear = document.getElementById('footer-year');
+if (footerYear) footerYear.textContent = String(new Date().getFullYear());

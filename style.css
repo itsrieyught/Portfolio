@@ -61,7 +61,8 @@
         }
 
         section {
-            padding: 0 10%;
+            /* Capped so wide screens don't lose content width (sections max out at 1400px). */
+            padding: 0 min(10%, 140px);
             position: relative;
             background: transparent;
             border: none;
@@ -115,7 +116,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 10%;
+            /* Lines the logo and menu up with the page content on wide screens. */
+            padding: 20px max(10%, calc((100% - 1400px) / 2 + 140px));
             background: rgba(255,255,255,0.38);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -430,7 +432,7 @@
 
         .main-btn {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             margin-top: 8px;
             flex-wrap: wrap;
         }
@@ -466,9 +468,17 @@
         }
 
         /* Hero showcase: three static ads fanned out, linking to the Static Ads section. */
+        .main-btn .btn.two {
+            margin-left: 0;
+        }
+
         .home-img.home-showcase {
+            /* Card width grows on large screens; everything else scales from it. */
+            --card: clamp(240px, calc(12vw + 105px), 350px); /* front card about as tall as the hero text */
             position: relative;
-            height: 460px;
+            flex-basis: calc(var(--card) * 1.85);
+            width: calc(var(--card) * 1.85);
+            height: calc(var(--card) * 2);
             animation: imgg 4s ease-in-out infinite;
         }
 
@@ -485,7 +495,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 230px;
+            width: var(--card);
             aspect-ratio: 1792 / 2400;
             border-radius: 20px;
             overflow: hidden;
@@ -505,12 +515,12 @@
 
         .showcase-left {
             z-index: 1;
-            transform: translate(-50%, -50%) translateX(-118px) rotate(-10deg) scale(0.86);
+            transform: translate(-50%, -50%) translateX(calc(var(--card) * -0.51)) rotate(-10deg) scale(0.86);
         }
 
         .showcase-right {
             z-index: 1;
-            transform: translate(-50%, -50%) translateX(118px) rotate(10deg) scale(0.86);
+            transform: translate(-50%, -50%) translateX(calc(var(--card) * 0.51)) rotate(10deg) scale(0.86);
         }
 
         .showcase-center {
@@ -521,12 +531,12 @@
 
         .home-showcase:hover .showcase-left,
         .home-showcase:focus-visible .showcase-left {
-            transform: translate(-50%, -50%) translateX(-150px) rotate(-14deg) scale(0.86);
+            transform: translate(-50%, -50%) translateX(calc(var(--card) * -0.65)) rotate(-14deg) scale(0.86);
         }
 
         .home-showcase:hover .showcase-right,
         .home-showcase:focus-visible .showcase-right {
-            transform: translate(-50%, -50%) translateX(150px) rotate(14deg) scale(0.86);
+            transform: translate(-50%, -50%) translateX(calc(var(--card) * 0.65)) rotate(14deg) scale(0.86);
         }
 
         .home-showcase:hover .showcase-center,
@@ -542,14 +552,12 @@
 
         @media (max-width: 900px) {
             .home-img.home-showcase {
+                --card: 180px;
+                flex-basis: auto;
                 width: min(100%, 420px);
                 height: 290px;
                 margin-top: 8px;
             }
-
-            .showcase-card { width: 180px; }
-            .showcase-left { transform: translate(-50%, -50%) translateX(-92px) rotate(-10deg) scale(0.86); }
-            .showcase-right { transform: translate(-50%, -50%) translateX(92px) rotate(10deg) scale(0.86); }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -734,7 +742,8 @@
             scroll-margin-top: 92px;
         }
 
-        .static-ads-intro {
+        .static-ads-intro,
+        .email-designs-intro {
             margin: -2px 0 28px;
             color: var(--muted);
             line-height: 1.7;
@@ -1027,8 +1036,10 @@
             opacity: 1;
             pointer-events: auto;
             border-radius: 16px;
-            /* Back of each card: the portfolio's dark red, matching the buttons. */
-            background: linear-gradient(135deg, var(--main-color) 0%, var(--main-dark) 100%);
+            /* Back of each card: white with a soft sheen. The faint inset edge keeps the
+               backs visible on the white carousel (it sits under the image, so fronts are unaffected). */
+            background: linear-gradient(135deg, #ffffff 0%, #eeecef 100%);
+            box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.1);
             transition: none;
         }
 
@@ -1036,9 +1047,17 @@
             object-fit: contain;
             background: #fff; /* keeps any letterbox space white on the front, not red */
             transform: translateZ(1px);
-            filter: brightness(clamp(0.5, calc(0.62 + 0.38 * var(--facing, 1)), 1));
-            transition: filter 0.9s ease, box-shadow 0.9s ease;
+            /* No filter here: a filter combined with the 3D rotation and the reflection
+               makes Chromium stop drawing the images after the ring turns. */
+            transition: box-shadow 0.9s ease;
             -webkit-box-reflect: below 10px linear-gradient(transparent 70%, rgba(255, 255, 255, 0.22));
+        }
+
+        /* Dark mode: black card backs with a faint light edge, so they don't glare
+           or vanish against the dark background. */
+        body.dark-mode .carousel-ring .ring-card {
+            background: linear-gradient(135deg, #2a2a2e 0%, #0b0b0d 100%);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
         }
 
         .carousel-ring .ring-card.is-active img {
@@ -1048,7 +1067,7 @@
 
         /* Static ads ring: cards match the 3:4 ad images, so nothing is cropped. */
         .ads-carousel.carousel-ring {
-            height: 540px;
+            height: 480px;
         }
 
         .ads-carousel.carousel-ring .ring-card {
@@ -1643,5 +1662,100 @@
 
             .video-card p {
                 font-size: 0.82rem;
+            }
+        }
+        /* ========== IN-BETWEEN SCREENS (small laptops, landscape tablets) ========== */
+        /* Menu: the full-size links don't fit below ~1260px, so tighten them until the
+           hamburger menu takes over at 900px. */
+        @media (min-width: 901px) and (max-width: 1260px) {
+            nav ul li a {
+                margin: 0 2px;
+                padding: 8px 10px;
+                font-size: 0.86rem;
+                letter-spacing: 0.06em;
+            }
+        }
+
+        /* Hero: side-by-side gets cramped below 1100px, so stack it centered
+           (text on top, ad stack below), like the phone layout but larger. */
+        @media (min-width: 901px) and (max-width: 1100px) {
+            .home {
+                flex-direction: column;
+                justify-content: center;
+                gap: 36px;
+                text-align: center;
+            }
+
+            .home-text {
+                flex: 0 0 auto;
+                align-items: center;
+                max-width: 720px;
+            }
+
+            .home-text h1::after {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .home-tags,
+            .main-btn {
+                justify-content: center;
+            }
+
+            .home-img.home-showcase {
+                --card: 250px;
+                flex-basis: auto;
+                width: min(100%, 520px);
+            }
+        }
+
+        /* Email Designs had no section padding, so its gaps were half the size of the others. */
+        #email-designs {
+            padding: 88px 0;
+            scroll-margin-top: 92px;
+        }
+
+        /* Contact: keep the title at the top instead of centred against the taller form. */
+        #contact .row {
+            align-items: flex-start;
+        }
+
+        /* ========== FOOTER ========== */
+        .site-footer {
+            border-top: 1px solid var(--border-soft);
+            padding: 28px min(10%, 140px);
+        }
+
+        .site-footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .site-footer a {
+            color: var(--main-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .site-footer a:hover,
+        .site-footer a:focus-visible {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .site-footer a {
+            color: var(--main-soft);
+        }
+
+        @media (max-width: 600px) {
+            .site-footer-inner {
+                flex-direction: column;
+                text-align: center;
             }
         }
