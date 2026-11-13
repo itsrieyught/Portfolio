@@ -749,135 +749,6 @@
             line-height: 1.7;
         }
 
-        .ads-carousel {
-            position: relative;
-            height: 440px;
-            max-width: 1200px;
-            margin: 0 auto;
-            overflow: hidden;
-            padding: 24px 64px;
-            border: 1px solid #e5e5e5;
-            border-radius: 40px;
-            background: #fff;
-            perspective: 1200px;
-            touch-action: pan-y;
-        }
-
-        .ads-carousel-track {
-            position: relative;
-            height: 100%;
-            transform-style: preserve-3d;
-        }
-
-        .ads-slide {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 270px;
-            height: 360px;
-            visibility: visible;
-            opacity: 0;
-            pointer-events: none;
-            transform: translate(-50%, -50%) translateX(0) translateZ(-500px) rotateY(0) scale(0.5);
-            transform-origin: center;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-            cursor: pointer;
-        }
-
-        .ads-slide img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top;
-            border-radius: 16px;
-            backface-visibility: hidden;
-            box-shadow: 0 8px 24px rgba(17, 24, 39, 0.12);
-        }
-
-        .ads-slide[data-offset="0"] {
-            opacity: 1;
-            z-index: 5;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) translateX(0) translateZ(0) rotateY(0) scale(1);
-        }
-
-        .ads-slide[data-offset="0"] img {
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .ads-slide[data-offset="-1"] {
-            opacity: 1;
-            z-index: 4;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) translateX(-260px) translateZ(-150px) rotateY(25deg) scale(0.85);
-        }
-
-        .ads-slide[data-offset="1"] {
-            opacity: 1;
-            z-index: 4;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) translateX(260px) translateZ(-150px) rotateY(-25deg) scale(0.85);
-        }
-
-        .ads-slide[data-offset="-2"] {
-            opacity: 0.6;
-            z-index: 3;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) translateX(-440px) translateZ(-300px) rotateY(45deg) scale(0.7);
-        }
-
-        .ads-slide[data-offset="2"] {
-            opacity: 0.6;
-            z-index: 3;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) translateX(440px) translateZ(-300px) rotateY(-45deg) scale(0.7);
-        }
-
-        .carousel-counter {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        .carousel-control {
-            position: absolute;
-            top: 50%;
-            z-index: 5;
-            display: grid;
-            place-items: center;
-            width: 40px;
-            height: 56px;
-            padding: 0;
-            border: 0;
-            background: transparent;
-            color: #111;
-            font-size: 28px;
-            cursor: pointer;
-            transform: translateY(-50%);
-        }
-
-        .carousel-control:hover,
-        .carousel-control:focus-visible { color: var(--main-color); }
-        .carousel-prev { left: 24px; }
-        .carousel-next { right: 24px; }
-
-        .carousel-dots {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-        }
-
         .carousel-lightbox {
             position: fixed;
             inset: 0;
@@ -919,30 +790,6 @@
             cursor: pointer;
         }
 
-        body.dark-mode .ads-carousel {
-            background: #1b1d22;
-            border-color: #353941;
-        }
-        body.dark-mode .carousel-control { color: #f5f5f5; }
-
-        @media (max-width: 768px) {
-            .ads-carousel {
-                height: 340px;
-                padding: 20px 24px;
-            }
-
-            .ads-slide {
-                width: 200px;
-                height: 267px;
-            }
-
-            .ads-slide[data-offset="-1"] { transform: translate(-50%, -50%) translateX(-170px) translateZ(-150px) rotateY(25deg) scale(0.85); }
-            .ads-slide[data-offset="1"] { transform: translate(-50%, -50%) translateX(170px) translateZ(-150px) rotateY(-25deg) scale(0.85); }
-            .ads-slide[data-offset="-2"],
-            .ads-slide[data-offset="2"] { opacity: 0; pointer-events: none; }
-            .carousel-prev { left: 8px; }
-            .carousel-next { right: 8px; }
-        }
 
         /* Email designs: full-length emails side by side. Click one to view it large. */
         .email-designs-grid {
@@ -1019,76 +866,76 @@
             .email-card:focus-visible { transform: none; }
         }
 
-        /* 3D ring carousel (used by Static Ads).
-           Cards stand in a circle viewed from slightly above; the whole ring rotates.
-           script.js (initializeRingCarousel) adds .ring-track / .ring-card and sets
-           each card's position and the ring radius. */
-        .carousel-ring {
-            perspective: 1100px;
-            perspective-origin: 50% 35%;
+        /* Static ads: gallery grid. The first ad is featured at double size, so
+           13 ads fill a 4-column grid exactly (one 2x2 + twelve 1x1 = 16 cells). */
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px;
+            border: 1px solid #e5e5e5;
+            border-radius: 40px;
+            background: #fff;
         }
 
-        .carousel-ring .ring-track {
-            transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+        .ad-card {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1792 / 2400; /* the ads' own shape, so nothing is cropped */
+            padding: 0;
+            border: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            cursor: zoom-in;
+            box-shadow: 0 8px 22px rgba(17, 24, 39, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .carousel-ring .ring-card {
-            opacity: 1;
-            pointer-events: auto;
-            border-radius: 16px;
-            /* Back of each card: white with a soft sheen. The faint inset edge keeps the
-               backs visible on the white carousel (it sits under the image, so fronts are unaffected). */
-            background: linear-gradient(135deg, #ffffff 0%, #eeecef 100%);
-            box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.1);
-            transition: none;
+        .ad-card--featured {
+            grid-column: span 2;
+            grid-row: span 2;
+            aspect-ratio: auto; /* fills its 2x2 area */
         }
 
-        .carousel-ring .ring-card img {
+        .ad-card:hover,
+        .ad-card:focus-visible {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(17, 24, 39, 0.18);
+        }
+
+        .ad-card:focus-visible {
+            outline: 3px solid var(--main-color);
+            outline-offset: 4px;
+        }
+
+        .ad-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            background: #fff; /* keeps any letterbox space white on the front, not red */
-            transform: translateZ(1px);
-            /* No filter here: a filter combined with the 3D rotation and the reflection
-               makes Chromium stop drawing the images after the ring turns. */
-            transition: box-shadow 0.9s ease;
-            -webkit-box-reflect: below 10px linear-gradient(transparent 70%, rgba(255, 255, 255, 0.22));
         }
 
-        /* Dark mode: black card backs with a faint light edge, so they don't glare
-           or vanish against the dark background. */
-        body.dark-mode .carousel-ring .ring-card {
-            background: linear-gradient(135deg, #2a2a2e 0%, #0b0b0d 100%);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+        body.dark-mode .ads-grid {
+            background: #1b1d22;
+            border-color: #353941;
         }
 
-        .carousel-ring .ring-card.is-active img {
-            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.22);
-        }
-
-
-        /* Static ads ring: cards match the 3:4 ad images, so nothing is cropped. */
-        .ads-carousel.carousel-ring {
-            height: 480px;
-        }
-
-        .ads-carousel.carousel-ring .ring-card {
-            width: 220px;
-            height: auto;
-            aspect-ratio: 1792 / 2400;
-        }
-
-        @media (max-width: 768px) {
-            .ads-carousel.carousel-ring {
-                height: 400px;
-                padding: 20px 24px;
-            }
-
-            .ads-carousel.carousel-ring .ring-card {
-                width: 150px;
+        @media (max-width: 700px) {
+            .ads-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+                padding: 16px;
+                border-radius: 28px;
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .carousel-ring .ring-track { transition: transform 0.2s linear; }
+            .ad-card { transition: none; }
+            .ad-card:hover,
+            .ad-card:focus-visible { transform: none; }
         }
 
         .skill-actions {
