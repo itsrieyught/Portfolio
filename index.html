@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Website</title>
+    <title>Jemarie Fernandez | Creative Designer</title>
+    <meta name="description" content="Portfolio of Jemarie Fernandez, a creative designer specializing in video editing, static ads, and email design.">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -26,8 +27,10 @@
                 <li><a href="#home" id="nav1">HOME</a></li>
                 <li><a href="#about" id="nav2">ABOUT</a></li>
                 <li><a href="#skills" id="nav3">SKILLS</a></li>
-                <li><a href="#videos" id="nav5">VIDEOS</a></li>
-                <li><a href="#contact" id="nav6">CONTACT</a></li>
+                <li><a href="#email-designs" id="nav4">EMAILS</a></li>
+                <li><a href="#static-ads" id="nav5">ADS</a></li>
+                <li><a href="#videos" id="nav6">VIDEOS</a></li>
+                <li><a href="#contact" id="nav7">CONTACT</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -49,30 +52,32 @@
         <div id="home">
             <section class="home">
                 <div class="home-text">
-                    <span>AI Video Ads Specialist</span>
+                    <span>Creative Designer</span>
                     <h1>Jemarie Fernandez</h1>
                     <p>Bachelor of Science in Computer Science | Expected 2027</p>
 
                     <div class="home-tags">
-                        <span class="tag">Capcut</span>
+                        <span class="tag">Static Ads</span>
+                        <span class="tag">Email Design</span>
+                        <span class="tag">Video Ads</span>
+                        <span class="tag">UGC Editing</span>
                         <span class="tag">Canva</span>
                         <span class="tag">Figma</span>
-                        <span class="tag">Video Editing</span>
-                        <span class="tag">Web Development</span>
-                        <span class="tag">Attention to Detail</span>
-                        <span class="tag">Time Management</span>
-                        <span class="tag">Fast Learning</span>
+                        <span class="tag">CapCut</span>
                     </div>
 
                     <div class="main-btn">
-                        <a href="Credentials\Resume.pdf" class="btn" download>Resume <i class="fa-solid fa-download resume-icon" aria-hidden="true"></i></a>
+                        <a href="#email-designs" class="btn">View My Work <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
                         <a href="#contact" class="btn two">Message Me</a>
+                        <a href="Credentials/Resume.pdf" class="btn two" download>Resume <i class="fa-solid fa-download resume-icon" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
-                <div class="home-img">
-                    <img src="images\home-img.jpg" alt="Home Image">
-                </div>
+                <a class="home-img home-showcase" href="#static-ads" aria-label="See my static ad designs">
+                    <span class="showcase-card showcase-left"><img src="static ads/11.webp" alt="Noir as Night concept perfume ad"></span>
+                    <span class="showcase-card showcase-right"><img src="static ads/12.webp" alt="Concept perfume ad portrait"></span>
+                    <span class="showcase-card showcase-center"><img src="static ads/10.webp" alt="Quiet Glow concept serum ad"></span>
+                </a>
             </section>
         </div>
 
@@ -81,14 +86,14 @@
             <section class="about">
                 <div class="row">
                     <div class="about-col-1">
-                        <img src="images\about-img.jpg" alt="About Image">
+                        <img src="images/about-img.webp" alt="Jemarie Fernandez">
                     </div>
                     <div class="about-col-2">
                         <h1 class="sub-title">About Me</h1>
-                        <p id="about-text" contenteditable="false" style="text-align: justify;">
-                            I'm a Virtual Assistant who's just as comfortable designing a social media graphic as I am cleaning up a messy spreadsheet. I work across Canva, Figma, and CapCut for design and video editing, and I also handle order tracking, data entry, and email copywriting using Google Sheets, Trello, and Microsoft Office, moving fast without sacrificing accuracy even when the workload gets repetitive or high volume. I ran end to end order fulfillment and customer support for a freelance reselling business, keeping daily sales and inventory records in Google Sheets with zero discrepancies, while also putting together the visuals and promo content that went along with it.
+                        <p id="about-text">
+                            I'm a creative designer focused on making brands impossible to scroll past. I design static ads, email campaigns, and social media graphics in Canva and Figma, and I edit video ads and UGC content in CapCut with clean cuts, deliberate pacing, and smooth transitions.
                             <br><br>
-                            I've handled end to end order fulfillment and customer support for a freelance reselling business, keeping daily sales and inventory records in Google Sheets with zero discrepancies. I'm a fast learner who quickly adapts to new tools and SOPs and takes full ownership of a task through to resolution. I'm also comfortable working across Canva, Figma, and CapCut for design and video work.
+                            My design work started on the business side. While running order fulfillment and customer support for a freelance reselling business, I also created the visuals and promo content for its products. That taught me to design with a goal in mind, not just for looks, and to stay organized and accurate under a heavy workload. Today I'm sharpening my craft through concept projects, designing ads, emails, and videos for products the way a real brand brief would demand. I learn new tools quickly and take full ownership of every project, from brief to final file.
                         </p>
                     </div>
                 </div>
@@ -103,38 +108,40 @@
                     <div class="skills-list">
                         <div>
                             <div class="skill-img">
-                                <img src="images\video-graphics.jpg" alt="Video Editing">
+                                <img src="images/sec.webp" alt="Email Design">
+                            </div>
+                            <h2>Email Design</h2>
+                            <p id="skill-text-1">
+                                I design marketing emails that stay on brand and easy to read, with clear sections, strong visuals, and buttons that make the next step obvious.
+                            </p>
+                            <div class="skill-actions">
+                                <a href="#email-designs" class="btn two">See My Work</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="skill-img">
+                                <img src="images/ads.webp" alt="Static Ads Design">
+                            </div>
+                            <h2>Static Ads Design</h2>
+                            <p id="skill-text-2">
+                                I design scroll-stopping static ads for social media, with a clear focal point, a strong headline, and a layout that makes the offer obvious at a glance.
+                            </p>
+                            <div class="skill-actions">
+                                <a href="#static-ads" class="btn two">See My Work</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="skill-img">
+                                <img src="images/video-graphics.webp" alt="Video Editing">
                             </div>
                             <h2>Video Editing</h2>
-                            <p id="skill-text-4" contenteditable="false" style="text-align:justify;">
-                                I bring technical precision to video editing in CapCut, applying clean cuts, deliberate pacing, and smooth transitions to keep every project polished and watchable.
+                            <p id="skill-text-4">
+                                I edit video ads and UGC content in CapCut, using clean cuts, deliberate pacing, and smooth transitions to hold attention from the first second to the call to action.
                             </p>
                             <div class="skill-actions">
                                 <a href="#videos" class="btn two">See My Work</a>
-                            </div>
-                        </div>
-                                                <div>
-                            <div class="skill-img">
-                                <img src="images\ads.jpg" alt="Static Ads Design">
-                            </div>
-                            <h2>Static Ads Design</h2>
-                            <p id="skill-text-2" contenteditable="false" style="text-align:justify;">
-                                I have a strong passion for the arts, and I bring that creative sensibility to my graphic design work. I'm confident in producing clean, visually engaging designs that communicate effectively.
-                            </p>
-                            <div class="skill-actions">
-                                <a href="#ui-designs" class="btn two">See My Work</a>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="skill-img">
-                                <img src="images\ui-ux.png" alt="UI/UX Design">
-                            </div>
-                            <h2>UI/UX Design</h2>
-                            <p id="skill-text-1" contenteditable="false" style="text-align:justify;">
-                                I design UI/UX interfaces with a focus on user experience and visual appeal, creating intuitive and aesthetically pleasing designs that enhance user engagement.
-                            </p>
-                            <div class="skill-actions">
-                                <a class="btn two">See My Work</a>
                             </div>
                         </div>
                     </div>
@@ -142,25 +149,43 @@
             </section>
         </div>
 
+        <!-- Email Designs Section -->
+        <div id="email-designs">
+            <section class="email-designs">
+                <div class="container">
+                    <h1 class="sub-title">Email Designs</h1>
+                    <p class="email-designs-intro">Concept email campaigns built around clear hierarchy, on-brand visuals, and a single call to action.</p>
+                    <div class="email-designs-grid">
+                        <button class="email-card" type="button" aria-label="View email design 1 full size"><img src="em_designs/MARKET D1.webp" alt="Email design sample 1" loading="lazy"></button>
+                        <button class="email-card" type="button" aria-label="View email design 2 full size"><img src="em_designs/MARKET D2.webp" alt="Email design sample 2" loading="lazy"></button>
+                        <button class="email-card" type="button" aria-label="View email design 3 full size"><img src="em_designs/MARKET D3.webp" alt="Email design sample 3" loading="lazy"></button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
         <!-- Static Ads Section -->
-        <div id="ui-designs">
-            <section class="ui-designs">
+        <div id="static-ads">
+            <section class="static-ads">
                 <div class="container">
                     <h1 class="sub-title">Static Ads</h1>
-                    <p class="ui-designs-intro">Static ad designs samples.</p>
-                    <div class="ui-carousel" data-carousel aria-label="Static ads design sequence">
-                        <div class="carousel-counter" aria-live="polite">01 / 08</div>
-                        <div class="ui-carousel-track">
-                            <div class="ui-slide is-active"><img src="static ads/1.jpg" alt="Static ad design 1"></div>
-                            <div class="ui-slide"><img src="static ads/2.jpg" alt="Static ad design 2"></div>
-                            <div class="ui-slide"><img src="static ads/3.jpg" alt="Static ad design 3"></div>
-                            <div class="ui-slide"><img src="static ads/4.jpg" alt="Static ad design 4"></div>
-                            <div class="ui-slide"><img src="static ads/5.jpg" alt="Static ad design 5"></div>
-                            <div class="ui-slide"><img src="static ads/6.jpg" alt="Static ad design 6"></div>
-                            <div class="ui-slide"><img src="static ads/7.jpg" alt="Static ad design 7"></div>
-                            <div class="ui-slide"><img src="static ads/8.jpg" alt="Static ad design 8"></div>
-                            <div class="ui-slide"><img src="static ads/9.jpg" alt="Static ad design 9"></div>
-                            <div class="ui-slide"><img src="static ads/10.jpg" alt="Static ad design 10"></div>
+                    <p class="static-ads-intro">Concept social ads exploring different products, offers, and visual styles.</p>
+                    <div class="ads-carousel carousel-ring" data-carousel data-carousel-ring aria-label="Static ads design sequence">
+                        <div class="carousel-counter" aria-live="polite">01 / 13</div>
+                        <div class="ads-carousel-track">
+                            <div class="ads-slide is-active"><img src="static ads/1.webp" alt="Static ad design 1"></div>
+                            <div class="ads-slide"><img src="static ads/2.webp" alt="Static ad design 2"></div>
+                            <div class="ads-slide"><img src="static ads/3.webp" alt="Static ad design 3"></div>
+                            <div class="ads-slide"><img src="static ads/4.webp" alt="Static ad design 4"></div>
+                            <div class="ads-slide"><img src="static ads/5.webp" alt="Static ad design 5"></div>
+                            <div class="ads-slide"><img src="static ads/6.webp" alt="Static ad design 6"></div>
+                            <div class="ads-slide"><img src="static ads/7.webp" alt="Static ad design 7"></div>
+                            <div class="ads-slide"><img src="static ads/8.webp" alt="Static ad design 8"></div>
+                            <div class="ads-slide"><img src="static ads/9.webp" alt="Static ad design 9"></div>
+                            <div class="ads-slide"><img src="static ads/10.webp" alt="Static ad design 10"></div>
+                            <div class="ads-slide"><img src="static ads/11.webp" alt="Static ad design 11"></div>
+                            <div class="ads-slide"><img src="static ads/12.webp" alt="Static ad design 12"></div>
+                            <div class="ads-slide"><img src="static ads/13.webp" alt="Static ad design 13"></div>
                         </div>
                         <button class="carousel-control carousel-prev" type="button" aria-label="Previous static ad design" data-carousel-prev><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
                         <button class="carousel-control carousel-next" type="button" aria-label="Next static ad design" data-carousel-next><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
@@ -178,19 +203,19 @@
                     <div class="videos-grid">
                         <a class="video-card" href="https://drive.google.com/file/d/18bw7TOsHXIMy902lCZ7mNcYDu3H4aNdf/view?usp=sharing" target="_blank" rel="noopener">
                             <div class="video-thumb">
-                                <img src="https://drive.google.com/thumbnail?id=18bw7TOsHXIMy902lCZ7mNcYDu3H4aNdf&sz=w1200" alt="New Featured Drive video thumbnail">
+                                <img src="https://drive.google.com/thumbnail?id=18bw7TOsHXIMy902lCZ7mNcYDu3H4aNdf&sz=w1200" alt="Luminosity Serum concept video ad thumbnail">
                                 <span class="play-icon"><i class="fa-solid fa-play"></i></span>
                             </div>
-                            <h3>Featured Video</h3>
-                            <p>Video Ads (Luminosity Serum).</p>
+                            <h3>Luminosity Serum</h3>
+                            <p>Concept video ad</p>
                         </a>
                         <a class="video-card" href="https://drive.google.com/file/d/1iL5sk18iM_nn_7vnp-PHDtYYuDRhABwv/view?usp=sharing" target="_blank" rel="noopener">
                             <div class="video-thumb">
-                                <img src="https://drive.google.com/thumbnail?id=1iL5sk18iM_nn_7vnp-PHDtYYuDRhABwv&sz=w1200" alt="Featured Drive video thumbnail">
+                                <img src="https://drive.google.com/thumbnail?id=1iL5sk18iM_nn_7vnp-PHDtYYuDRhABwv&sz=w1200" alt="Ethereal Perfume concept UGC video thumbnail">
                                 <span class="play-icon"><i class="fa-solid fa-play"></i></span>
                             </div>
-                            <h3>Featured Video</h3>
-                            <p>UGC (Ethereal Perfume).</p>
+                            <h3>Ethereal Perfume</h3>
+                            <p>Concept UGC video</p>
                         </a>
                     </div>
                 </div>
@@ -204,13 +229,13 @@
                     <div class="row">
                         <div class="contact-left">
                             <h1 class="sub-title">Contact Me</h1>
-                            <p><i class="fa-solid fa-paper-plane"></i> itsjemariefernandez@gmail.com</p>
-                            <p><i class="fa-solid fa-phone"></i> 09631413188</p>
+                            <p><i class="fa-solid fa-paper-plane"></i> <a href="mailto:itsjemariefernandez@gmail.com">itsjemariefernandez@gmail.com</a></p>
+                            <p><i class="fa-solid fa-phone"></i> <a href="tel:+639631413188">0963 141 3188</a></p>
                             <div class="social-icons">
-                                <a href="https://www.facebook.com/itsjemariefernandez"><i class="fa-brands fa-facebook"></i></a>
-                                <a href="https://www.instagram.com/rieyught"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="https://www.linkedin.com/in/jemarie-fernandez"><i class="fab fa-linkedin"></i></a>
-                                <a href="https://github.com/itsrieyught" target="_blank"><i class="fab fa-github"></i></a>
+                                <a href="https://www.facebook.com/itsjemariefernandez" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="https://www.instagram.com/rieyught" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/jemarie-fernandez" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="https://github.com/itsrieyught" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                         <div class="contact-right">

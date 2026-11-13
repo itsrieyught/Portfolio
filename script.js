@@ -3,8 +3,6 @@ const darkModeBtn = document.getElementById('darkmode-btn');
 const body = document.body;
 const notification = document.getElementById('notification');
 const notificationText = document.getElementById('notification-text');
-const aboutText = document.getElementById('about-text');
-const editAboutBtn = document.getElementById('edit-btn');
 const contactForm = document.getElementById('contact-form');
 const clearFormBtn = document.getElementById('clear-form-btn');
 
@@ -26,49 +24,6 @@ function toggleDarkMode() {
 }
 
 darkModeBtn.addEventListener('click', toggleDarkMode);
-
-// Edit About Section
-function toggleAboutEdit() {
-    const isEditing = aboutText.contentEditable === 'true';
-
-    if (isEditing) {
-        aboutText.contentEditable = 'false';
-        editAboutBtn.textContent = 'Edit';
-        showNotification('About section saved!');
-    } else {
-        aboutText.contentEditable = 'true';
-        aboutText.focus();
-        editAboutBtn.textContent = 'Save';
-        showNotification('Edit mode enabled');
-    }
-}
-
-if (editAboutBtn) {
-    editAboutBtn.addEventListener('click', toggleAboutEdit);
-}
-
-// Skills Edit Functionality
-for (let i = 1; i <= 4; i++) {
-    const skillText = document.getElementById(`skill-text-${i}`);
-    const editSkillBtn = document.getElementById(`edit-skill-${i}`);
-
-    if (skillText && editSkillBtn) {
-        editSkillBtn.addEventListener('click', () => {
-            const isEditing = skillText.contentEditable === 'true';
-
-            if (isEditing) {
-                skillText.contentEditable = 'false';
-                editSkillBtn.textContent = 'Edit';
-                showNotification(`Skill ${i} saved!`);
-            } else {
-                skillText.contentEditable = 'true';
-                editSkillBtn.textContent = 'Save';
-                skillText.focus();
-                showNotification('Edit mode enabled');
-            }
-        });
-    }
-}
 
 // Clear Form Button
 clearFormBtn.addEventListener('click', function() {
@@ -110,7 +65,7 @@ sharedLightbox.className = 'carousel-lightbox';
 sharedLightbox.hidden = true;
 sharedLightbox.setAttribute('role', 'dialog');
 sharedLightbox.setAttribute('aria-modal', 'true');
-sharedLightbox.setAttribute('aria-label', 'Expanded dashboard screen');
+sharedLightbox.setAttribute('aria-label', 'Expanded design image');
 sharedLightbox.innerHTML = `
     <div class="carousel-lightbox-content">
         <img alt="">
@@ -151,11 +106,28 @@ document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !sharedLightbox.hidden) closeSharedLightbox();
 });
 
+// Email designs: each full-length email opens in the shared lightbox.
+document.querySelectorAll('.email-card').forEach((card) => {
+    card.addEventListener('click', () => openSharedLightbox(card));
+});
+
 let hoveredOrFocusedCarousel = null;
 const carouselAutoplayResetters = new Set();
 
+// Remembers which carousel the arrow keys should control.
+function trackCarouselHover(carousel) {
+    carousel.addEventListener('mouseenter', () => { hoveredOrFocusedCarousel = carousel; });
+    carousel.addEventListener('mouseleave', () => {
+        if (hoveredOrFocusedCarousel === carousel && !carousel.contains(document.activeElement)) hoveredOrFocusedCarousel = null;
+    });
+    carousel.addEventListener('focusin', () => { hoveredOrFocusedCarousel = carousel; });
+    carousel.addEventListener('focusout', () => {
+        if (!carousel.matches(':hover') && hoveredOrFocusedCarousel === carousel) hoveredOrFocusedCarousel = null;
+    });
+}
+
 function initializeCarousel(carousel) {
-    const slides = Array.from(carousel.querySelectorAll('.ui-slide'));
+    const slides = Array.from(carousel.querySelectorAll('.ads-slide'));
     const total = slides.length;
     const dotsContainer = carousel.querySelector('.carousel-dots');
     const previousButton = carousel.querySelector('[data-carousel-prev]');
@@ -173,7 +145,7 @@ function initializeCarousel(carousel) {
         dot.className = 'carousel-dot';
         dot.type = 'button';
         dot.setAttribute('role', 'tab');
-        dot.setAttribute('aria-label', `Show dashboard screen ${slideIndex + 1}`);
+        dot.setAttribute('aria-label', `Show design ${slideIndex + 1}`);
         dot.dataset.carouselDot = String(slideIndex);
         dotsContainer.appendChild(dot);
     });
@@ -215,14 +187,7 @@ function initializeCarousel(carousel) {
 
     carouselAutoplayResetters.add(resetAutoplayTimer);
 
-    carousel.addEventListener('mouseenter', () => { hoveredOrFocusedCarousel = carousel; });
-    carousel.addEventListener('mouseleave', () => {
-        if (hoveredOrFocusedCarousel === carousel && !carousel.contains(document.activeElement)) hoveredOrFocusedCarousel = null;
-    });
-    carousel.addEventListener('focusin', () => { hoveredOrFocusedCarousel = carousel; });
-    carousel.addEventListener('focusout', () => {
-        if (!carousel.matches(':hover') && hoveredOrFocusedCarousel === carousel) hoveredOrFocusedCarousel = null;
-    });
+    trackCarouselHover(carousel);
     previousButton?.addEventListener('click', () => {
         resetAutoplayTimer();
         showSlide(currentIndex - 1);
@@ -269,7 +234,125 @@ function initializeCarousel(carousel) {
     resetAutoplayTimer();
 }
 
-document.querySelectorAll('[data-carousel]').forEach(initializeCarousel);
+// 3D ring carousel: cards stand in a circle and the whole ring rotates.
+function initializeRingCarousel(carousel) {
+    const originals = Array.from(carousel.querySelectorAll('.ads-slide'));
+    const total = originals.length;
+    if (total === 0) return;
+    const track = originals[0].parentElement;
+    track.classList.add('ring-track');
+    originals.forEach((slide) => slide.classList.add('ring-card'));
+    const counter = carousel.querySelector('.carousel-counter');
+    const previousButton = carousel.querySelector('[data-carousel-prev]');
+    const nextButton = carousel.querySelector('[data-carousel-next]');
+    carousel.querySelector('.carousel-dots')?.remove();
+
+    // Repeat the designs so a short list still forms a full ring.
+    const MIN_FACES = 12;
+    const copies = Math.max(1, Math.ceil(MIN_FACES / total));
+    const faces = [...originals];
+    for (let copy = 1; copy < copies; copy++) {
+        originals.forEach((slide) => {
+            const clone = slide.cloneNode(true);
+            clone.querySelector('img').alt = '';
+            track.appendChild(clone);
+            faces.push(clone);
+        });
+    }
+
+    const faceCount = faces.length;
+    const angle = 360 / faceCount;
+    let step = 0; // never wrapped, so the ring always turns the short way
+    let radius = 0;
+    let startX = 0;
+    let autoplayTimer = null;
+
+    const frontFace = () => ((step % faceCount) + faceCount) % faceCount;
+    const pad = (value) => String(value).padStart(2, '0');
+
+    function render() {
+        track.style.transform = `translateY(-28px) translateZ(${-radius}px) rotateX(-8deg) rotateY(${-step * angle}deg)`;
+        const front = frontFace();
+        faces.forEach((face, faceIndex) => {
+            const isFront = faceIndex === front;
+            const facing = Math.cos(((faceIndex - step) * angle * Math.PI) / 180);
+            face.style.setProperty('--facing', facing.toFixed(3));
+            face.classList.toggle('is-active', isFront);
+            face.tabIndex = isFront ? 0 : -1;
+            face.setAttribute('aria-hidden', String(!isFront));
+        });
+        if (counter) counter.textContent = `${pad((front % total) + 1)} / ${pad(total)}`;
+    }
+
+    function layout() {
+        const cardWidth = faces[0].offsetWidth;
+        radius = Math.round(((cardWidth / 2) / Math.tan(Math.PI / faceCount)) * 1.12);
+        faces.forEach((face, faceIndex) => {
+            face.style.transform = `translate(-50%, -50%) rotateY(${faceIndex * angle}deg) translateZ(${radius}px)`;
+        });
+        render();
+    }
+
+    function rotateBy(delta) {
+        step += delta;
+        render();
+    }
+
+    function rotateToFace(faceIndex) {
+        let delta = faceIndex - frontFace();
+        if (delta > faceCount / 2) delta -= faceCount;
+        if (delta < -faceCount / 2) delta += faceCount;
+        rotateBy(delta);
+    }
+
+    function resetAutoplayTimer() {
+        if (autoplayTimer !== null) clearInterval(autoplayTimer);
+        autoplayTimer = setInterval(() => {
+            if (sharedLightbox.hidden && hoveredOrFocusedCarousel !== carousel) rotateBy(1);
+        }, 3000);
+    }
+
+    carouselAutoplayResetters.add(resetAutoplayTimer);
+    trackCarouselHover(carousel);
+    carousel.tabIndex = 0;
+
+    previousButton?.addEventListener('click', () => { resetAutoplayTimer(); rotateBy(-1); });
+    nextButton?.addEventListener('click', () => { resetAutoplayTimer(); rotateBy(1); });
+    carousel.addEventListener('carousel-key-navigation', (event) => {
+        resetAutoplayTimer();
+        rotateBy(event.detail);
+    });
+    faces.forEach((face, faceIndex) => {
+        face.addEventListener('click', () => {
+            resetAutoplayTimer();
+            if (faceIndex === frontFace()) openSharedLightbox(face);
+            else rotateToFace(faceIndex);
+        });
+        face.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openSharedLightbox(face);
+            }
+        });
+    });
+    carousel.addEventListener('touchstart', (event) => {
+        startX = event.changedTouches[0].clientX;
+    }, { passive: true });
+    carousel.addEventListener('touchend', (event) => {
+        const distance = event.changedTouches[0].clientX - startX;
+        if (Math.abs(distance) >= 40) {
+            resetAutoplayTimer();
+            rotateBy(distance < 0 ? 1 : -1);
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', layout);
+    layout();
+    resetAutoplayTimer();
+}
+
+document.querySelectorAll('[data-carousel]:not([data-carousel-ring])').forEach(initializeCarousel);
+document.querySelectorAll('[data-carousel-ring]').forEach(initializeRingCarousel);
 
 document.addEventListener('keydown', (event) => {
     if (!hoveredOrFocusedCarousel || (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight')) return;

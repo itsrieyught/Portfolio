@@ -465,6 +465,98 @@
             100% { transform: translateY(0); }
         }
 
+        /* Hero showcase: three static ads fanned out, linking to the Static Ads section. */
+        .home-img.home-showcase {
+            position: relative;
+            height: 460px;
+            animation: imgg 4s ease-in-out infinite;
+        }
+
+        .home-showcase::before {
+            content: "";
+            position: absolute;
+            inset: 12% 8%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 26, 26, 0.22) 0%, rgba(139, 26, 26, 0) 70%);
+            filter: blur(10px);
+        }
+
+        .showcase-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 230px;
+            aspect-ratio: 1792 / 2400;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+            transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .home-img .showcase-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+            box-shadow: none;
+            animation: none;
+        }
+
+        .showcase-left {
+            z-index: 1;
+            transform: translate(-50%, -50%) translateX(-118px) rotate(-10deg) scale(0.86);
+        }
+
+        .showcase-right {
+            z-index: 1;
+            transform: translate(-50%, -50%) translateX(118px) rotate(10deg) scale(0.86);
+        }
+
+        .showcase-center {
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 30px 60px rgba(92, 13, 13, 0.32);
+        }
+
+        .home-showcase:hover .showcase-left,
+        .home-showcase:focus-visible .showcase-left {
+            transform: translate(-50%, -50%) translateX(-150px) rotate(-14deg) scale(0.86);
+        }
+
+        .home-showcase:hover .showcase-right,
+        .home-showcase:focus-visible .showcase-right {
+            transform: translate(-50%, -50%) translateX(150px) rotate(14deg) scale(0.86);
+        }
+
+        .home-showcase:hover .showcase-center,
+        .home-showcase:focus-visible .showcase-center {
+            transform: translate(-50%, -50%) translateY(-8px);
+        }
+
+        .home-showcase:focus-visible {
+            outline: 3px solid var(--main-color);
+            outline-offset: 8px;
+            border-radius: 28px;
+        }
+
+        @media (max-width: 900px) {
+            .home-img.home-showcase {
+                width: min(100%, 420px);
+                height: 290px;
+                margin-top: 8px;
+            }
+
+            .showcase-card { width: 180px; }
+            .showcase-left { transform: translate(-50%, -50%) translateX(-92px) rotate(-10deg) scale(0.86); }
+            .showcase-right { transform: translate(-50%, -50%) translateX(92px) rotate(10deg) scale(0.86); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .home-img.home-showcase { animation: none; }
+            .showcase-card { transition: none; }
+        }
+
         /* ========== ABOUT SECTION ========== */
         #about {
             padding: 88px 0;
@@ -637,18 +729,18 @@
             background-color: #e0e0e0;
         }
 
-        #ui-designs {
+        #static-ads {
             padding: 88px 0;
             scroll-margin-top: 92px;
         }
 
-        .ui-designs-intro {
+        .static-ads-intro {
             margin: -2px 0 28px;
             color: var(--muted);
             line-height: 1.7;
         }
 
-        .ui-carousel {
+        .ads-carousel {
             position: relative;
             height: 440px;
             max-width: 1200px;
@@ -662,13 +754,13 @@
             touch-action: pan-y;
         }
 
-        .ui-carousel-track {
+        .ads-carousel-track {
             position: relative;
             height: 100%;
             transform-style: preserve-3d;
         }
 
-        .ui-slide {
+        .ads-slide {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -684,7 +776,7 @@
             cursor: pointer;
         }
 
-        .ui-slide img {
+        .ads-slide img {
             display: block;
             width: 100%;
             height: 100%;
@@ -695,39 +787,39 @@
             box-shadow: 0 8px 24px rgba(17, 24, 39, 0.12);
         }
 
-        .ui-slide[data-offset="0"] {
+        .ads-slide[data-offset="0"] {
             opacity: 1;
             z-index: 5;
             pointer-events: auto;
             transform: translate(-50%, -50%) translateX(0) translateZ(0) rotateY(0) scale(1);
         }
 
-        .ui-slide[data-offset="0"] img {
+        .ads-slide[data-offset="0"] img {
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         }
 
-        .ui-slide[data-offset="-1"] {
+        .ads-slide[data-offset="-1"] {
             opacity: 1;
             z-index: 4;
             pointer-events: auto;
             transform: translate(-50%, -50%) translateX(-260px) translateZ(-150px) rotateY(25deg) scale(0.85);
         }
 
-        .ui-slide[data-offset="1"] {
+        .ads-slide[data-offset="1"] {
             opacity: 1;
             z-index: 4;
             pointer-events: auto;
             transform: translate(-50%, -50%) translateX(260px) translateZ(-150px) rotateY(-25deg) scale(0.85);
         }
 
-        .ui-slide[data-offset="-2"] {
+        .ads-slide[data-offset="-2"] {
             opacity: 0.6;
             z-index: 3;
             pointer-events: auto;
             transform: translate(-50%, -50%) translateX(-440px) translateZ(-300px) rotateY(45deg) scale(0.7);
         }
 
-        .ui-slide[data-offset="2"] {
+        .ads-slide[data-offset="2"] {
             opacity: 0.6;
             z-index: 3;
             pointer-events: auto;
@@ -818,26 +910,166 @@
             cursor: pointer;
         }
 
-        body.dark-mode .ui-carousel { background: #1b1d22; border-color: #353941; }
+        body.dark-mode .ads-carousel {
+            background: #1b1d22;
+            border-color: #353941;
+        }
         body.dark-mode .carousel-control { color: #f5f5f5; }
 
         @media (max-width: 768px) {
-            .ui-carousel {
+            .ads-carousel {
                 height: 340px;
                 padding: 20px 24px;
             }
 
-            .ui-slide {
+            .ads-slide {
                 width: 200px;
                 height: 267px;
             }
 
-            .ui-slide[data-offset="-1"] { transform: translate(-50%, -50%) translateX(-170px) translateZ(-150px) rotateY(25deg) scale(0.85); }
-            .ui-slide[data-offset="1"] { transform: translate(-50%, -50%) translateX(170px) translateZ(-150px) rotateY(-25deg) scale(0.85); }
-            .ui-slide[data-offset="-2"],
-            .ui-slide[data-offset="2"] { opacity: 0; pointer-events: none; }
+            .ads-slide[data-offset="-1"] { transform: translate(-50%, -50%) translateX(-170px) translateZ(-150px) rotateY(25deg) scale(0.85); }
+            .ads-slide[data-offset="1"] { transform: translate(-50%, -50%) translateX(170px) translateZ(-150px) rotateY(-25deg) scale(0.85); }
+            .ads-slide[data-offset="-2"],
+            .ads-slide[data-offset="2"] { opacity: 0; pointer-events: none; }
             .carousel-prev { left: 8px; }
             .carousel-next { right: 8px; }
+        }
+
+        /* Email designs: full-length emails side by side. Click one to view it large. */
+        .email-designs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 260px));
+            justify-content: center;
+            align-items: start;
+            gap: 36px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 44px 32px;
+            border: 1px solid #e5e5e5;
+            border-radius: 40px;
+            background: #fff;
+        }
+
+        .email-card {
+            display: block;
+            width: 100%;
+            padding: 0;
+            border: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: none;
+            cursor: zoom-in;
+            box-shadow: 0 10px 30px rgba(17, 24, 39, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .email-card:hover,
+        .email-card:focus-visible {
+            transform: translateY(-6px);
+            box-shadow: 0 22px 46px rgba(17, 24, 39, 0.18);
+        }
+
+        .email-card:focus-visible {
+            outline: 3px solid var(--main-color);
+            outline-offset: 4px;
+        }
+
+        .email-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        body.dark-mode .email-designs-grid {
+            background: #1b1d22;
+            border-color: #353941;
+        }
+
+        @media (max-width: 768px) {
+            /* Phones: swipe through the emails sideways instead of squeezing three columns. */
+            .email-designs-grid {
+                grid-template-columns: none;
+                grid-auto-flow: column;
+                grid-auto-columns: 62vw;
+                justify-content: start;
+                gap: 16px;
+                padding: 24px 20px;
+                border-radius: 28px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+            }
+
+            .email-card {
+                scroll-snap-align: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .email-card { transition: none; }
+            .email-card:hover,
+            .email-card:focus-visible { transform: none; }
+        }
+
+        /* 3D ring carousel (used by Static Ads).
+           Cards stand in a circle viewed from slightly above; the whole ring rotates.
+           script.js (initializeRingCarousel) adds .ring-track / .ring-card and sets
+           each card's position and the ring radius. */
+        .carousel-ring {
+            perspective: 1100px;
+            perspective-origin: 50% 35%;
+        }
+
+        .carousel-ring .ring-track {
+            transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .carousel-ring .ring-card {
+            opacity: 1;
+            pointer-events: auto;
+            border-radius: 16px;
+            /* Back of each card: the portfolio's dark red, matching the buttons. */
+            background: linear-gradient(135deg, var(--main-color) 0%, var(--main-dark) 100%);
+            transition: none;
+        }
+
+        .carousel-ring .ring-card img {
+            object-fit: contain;
+            background: #fff; /* keeps any letterbox space white on the front, not red */
+            transform: translateZ(1px);
+            filter: brightness(clamp(0.5, calc(0.62 + 0.38 * var(--facing, 1)), 1));
+            transition: filter 0.9s ease, box-shadow 0.9s ease;
+            -webkit-box-reflect: below 10px linear-gradient(transparent 70%, rgba(255, 255, 255, 0.22));
+        }
+
+        .carousel-ring .ring-card.is-active img {
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.22);
+        }
+
+
+        /* Static ads ring: cards match the 3:4 ad images, so nothing is cropped. */
+        .ads-carousel.carousel-ring {
+            height: 540px;
+        }
+
+        .ads-carousel.carousel-ring .ring-card {
+            width: 220px;
+            height: auto;
+            aspect-ratio: 1792 / 2400;
+        }
+
+        @media (max-width: 768px) {
+            .ads-carousel.carousel-ring {
+                height: 400px;
+                padding: 20px 24px;
+            }
+
+            .ads-carousel.carousel-ring .ring-card {
+                width: 150px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .carousel-ring .ring-track { transition: transform 0.2s linear; }
         }
 
         .skill-actions {
@@ -992,6 +1224,17 @@
 
         .contact-left p {
             margin-top: 20px;
+        }
+
+        .contact-left p a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-left p a:hover,
+        .contact-left p a:focus-visible {
+            color: var(--main-color);
         }
 
         .contact-left p i {
