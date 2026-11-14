@@ -89,7 +89,8 @@ function closeSharedLightbox() {
 
 function openSharedLightbox(slide) {
     const image = slide.querySelector('img');
-    sharedLightboxImage.src = image.src;
+    // Grid images are small previews; the lightbox loads the full-size file.
+    sharedLightboxImage.src = image.dataset.full || image.src;
     sharedLightboxImage.alt = image.alt;
     lightboxReturnFocus = slide;
     sharedLightbox.hidden = false;
