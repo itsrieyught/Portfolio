@@ -1330,23 +1330,30 @@
                 order: 2;
             }
 
+            /* Open menu: a dropdown card floating just below the bar, so opening it
+               doesn't stretch the bar or move the logo and buttons. */
             nav ul {
                 display: none;
-                width: 100%;
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 5%;
+                right: 5%;
+                width: auto;
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 14px;
-                background: rgba(255, 255, 255, 0.92);
-                padding: 16px 20px 20px;
-                margin-top: 8px;
-                border-radius: 12px;
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-                position: relative;
+                align-items: stretch;
+                gap: 2px;
+                background: #ffffff;
+                padding: 10px;
+                margin: 0;
+                border: 1px solid var(--border-soft);
+                border-radius: 16px;
+                box-shadow: 0 18px 40px rgba(17, 24, 39, 0.14);
                 z-index: 1001;
             }
 
             body.dark-mode nav ul {
-                background: rgba(18, 18, 18, 0.95);
+                background: #17181c;
+                border-color: #353941;
             }
 
             nav ul li a {

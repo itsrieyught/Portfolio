@@ -34,6 +34,22 @@ clearFormBtn.addEventListener('click', function() {
 // Smooth scrolling and click-based active state for navigation links
 const navLinks = document.querySelectorAll('nav ul li a');
 const menuToggle = document.getElementById('check');
+const menuButton = document.querySelector('label[for="check"]');
+
+// Mobile menu: keep the button's state in sync for screen readers, and let
+// keyboard users open it with Enter or Space.
+function syncMenuButton() {
+    menuButton?.setAttribute('aria-expanded', String(menuToggle.checked));
+    menuButton?.setAttribute('aria-label', menuToggle.checked ? 'Close menu' : 'Open menu');
+}
+menuToggle.addEventListener('change', syncMenuButton);
+menuButton?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        menuToggle.checked = !menuToggle.checked;
+        syncMenuButton();
+    }
+});
 
 navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
@@ -44,6 +60,7 @@ navLinks.forEach(link => {
         navLinks.forEach(navLink => navLink.classList.remove('active'));
         this.classList.add('active');
         menuToggle.checked = false;
+        syncMenuButton();
 
         if (targetId === '#home') {
             document.getElementById('home').scrollIntoView({

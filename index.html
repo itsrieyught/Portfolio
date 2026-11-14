@@ -22,8 +22,11 @@
             <a href="#" class="logo"><span>J</span>emF</a>
         </div>
 
+        <!-- Must come before .nav-panel: the CSS opens the menu with "#check:checked ~ .nav-panel". -->
+        <input type="checkbox" name="check" id="check">
+
         <div class="nav-panel">
-            <ul>
+            <ul id="nav-links">
                 <li><a href="#home" id="nav1">HOME</a></li>
                 <li><a href="#about" id="nav2">ABOUT</a></li>
                 <li><a href="#skills" id="nav3">SKILLS</a></li>
@@ -34,7 +37,7 @@
             </ul>
 
             <div class="nav-actions">
-                <label for="check" class="checkbox" aria-label="Open menu"><i class="fa-solid fa-bars"></i></label>
+                <label for="check" class="checkbox" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false" role="button" tabindex="0"><i class="fa-solid fa-bars"></i></label>
 
                 <div class="toggle-container">
                     <button id="darkmode-btn" class="toggle-btn" type="button" aria-label="Toggle dark mode">
@@ -44,7 +47,6 @@
             </div>
         </div>
 
-        <input type="checkbox" name="check" id="check">
     </nav>
 
     <div class="page-wrapper">
