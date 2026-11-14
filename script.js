@@ -107,7 +107,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 // Email designs and static ads: each design opens in the shared lightbox.
-document.querySelectorAll('.email-card, .ad-card').forEach((card) => {
+document.querySelectorAll('.email-card, .design-card').forEach((card) => {
     card.addEventListener('click', () => openSharedLightbox(card));
 });
 

@@ -737,12 +737,12 @@
             background-color: #e0e0e0;
         }
 
-        #static-ads {
+        #static-designs {
             padding: 88px 0;
             scroll-margin-top: 92px;
         }
 
-        .static-ads-intro,
+        .static-designs-intro,
         .email-designs-intro {
             margin: -2px 0 28px;
             color: var(--muted);
@@ -868,7 +868,7 @@
 
         /* Static ads: gallery grid. The first ad is featured at double size, so
            13 ads fill a 4-column grid exactly (one 2x2 + twelve 1x1 = 16 cells). */
-        .ads-grid {
+        .design-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 20px;
@@ -880,7 +880,7 @@
             background: #fff;
         }
 
-        .ad-card {
+        .design-card {
             display: block;
             width: 100%;
             aspect-ratio: 1792 / 2400; /* the ads' own shape, so nothing is cropped */
@@ -894,37 +894,37 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .ad-card--featured {
+        .design-card--featured {
             grid-column: span 2;
             grid-row: span 2;
             aspect-ratio: auto; /* fills its 2x2 area */
         }
 
-        .ad-card:hover,
-        .ad-card:focus-visible {
+        .design-card:hover,
+        .design-card:focus-visible {
             transform: translateY(-6px);
             box-shadow: 0 20px 40px rgba(17, 24, 39, 0.18);
         }
 
-        .ad-card:focus-visible {
+        .design-card:focus-visible {
             outline: 3px solid var(--main-color);
             outline-offset: 4px;
         }
 
-        .ad-card img {
+        .design-card img {
             display: block;
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
 
-        body.dark-mode .ads-grid {
+        body.dark-mode .design-grid {
             background: #1b1d22;
             border-color: #353941;
         }
 
         @media (max-width: 700px) {
-            .ads-grid {
+            .design-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 12px;
                 padding: 16px;
@@ -933,9 +933,9 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .ad-card { transition: none; }
-            .ad-card:hover,
-            .ad-card:focus-visible { transform: none; }
+            .design-card { transition: none; }
+            .design-card:hover,
+            .design-card:focus-visible { transform: none; }
         }
 
         .skill-actions {
